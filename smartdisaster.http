@@ -1,0 +1,232 @@
+### SmartDisaster Portal — Arquivo de Testes HTTP
+### Requer extensão "REST Client" no VS Code
+### Base URL: ajuste a porta conforme exibida no terminal ao rodar dotnet run
+
+@baseUrl = http://localhost:5062
+
+# ===========================================================
+# ABRIGOS
+# ===========================================================
+
+### GET - Listar todos os abrigos
+GET {{baseUrl}}/api/abrigos
+Accept: application/json
+
+###
+
+### GET - Buscar abrigo por ID
+GET {{baseUrl}}/api/abrigos/1
+Accept: application/json
+
+###
+
+### GET - Buscar abrigo inexistente (espera 404)
+GET {{baseUrl}}/api/abrigos/999
+Accept: application/json
+
+###
+
+### POST - Cadastrar novo abrigo
+POST {{baseUrl}}/api/abrigos
+Content-Type: application/json
+
+{
+  "nome": "Abrigo Norte",
+  "cidade": "Fortaleza",
+  "estado": "CE",
+  "endereco": "Av. Bezerra de Menezes, 500 - Jacarecanga",
+  "capacidadeMaxima": 150,
+  "status": 1
+}
+
+###
+
+### POST - Abrigo inválido (espera 400 com erros de validação)
+POST {{baseUrl}}/api/abrigos
+Content-Type: application/json
+
+{
+  "nome": "A",
+  "cidade": "",
+  "estado": "SP",
+  "capacidadeMaxima": -1,
+  "status": 1
+}
+
+###
+
+### PUT - Atualizar abrigo ID 1
+PUT {{baseUrl}}/api/abrigos/1
+Content-Type: application/json
+
+{
+  "nome": "Abrigo Central São Paulo (Atualizado)",
+  "cidade": "São Paulo",
+  "estado": "SP",
+  "endereco": "Av. Paulista, 1500 - Bela Vista",
+  "capacidadeMaxima": 600,
+  "status": 2
+}
+
+###
+
+### DELETE - Remover abrigo (cascade: necessidades e doações vinculadas são removidas)
+DELETE {{baseUrl}}/api/abrigos/4
+Accept: application/json
+
+###
+
+# ===========================================================
+# NECESSIDADES
+# ===========================================================
+
+### GET - Listar todas as necessidades
+GET {{baseUrl}}/api/necessidades
+Accept: application/json
+
+###
+
+### GET - Buscar necessidade por ID
+GET {{baseUrl}}/api/necessidades/1
+Accept: application/json
+
+###
+
+### POST - Registrar nova necessidade
+POST {{baseUrl}}/api/necessidades
+Content-Type: application/json
+
+{
+  "tipo": 2,
+  "quantidadeNecessaria": 200,
+  "prioridade": 4,
+  "status": 1,
+  "abrigoId": 1
+}
+
+###
+
+### PUT - Atualizar necessidade ID 1 (marcar como atendida)
+PUT {{baseUrl}}/api/necessidades/1
+Content-Type: application/json
+
+{
+  "tipo": 1,
+  "quantidadeNecessaria": 1000,
+  "prioridade": 4,
+  "status": 3,
+  "abrigoId": 1
+}
+
+###
+
+### DELETE - Remover necessidade ID 1
+DELETE {{baseUrl}}/api/necessidades/1
+
+###
+
+# ===========================================================
+# VOLUNTÁRIOS
+# ===========================================================
+
+### GET - Listar todos os voluntários
+GET {{baseUrl}}/api/voluntarios
+Accept: application/json
+
+###
+
+### GET - Buscar voluntário por ID
+GET {{baseUrl}}/api/voluntarios/1
+Accept: application/json
+
+###
+
+### POST - Cadastrar novo voluntário
+POST {{baseUrl}}/api/voluntarios
+Content-Type: application/json
+
+{
+  "nome": "João Silva",
+  "email": "joao.silva@email.com",
+  "telefone": "(11) 99999-0000"
+}
+
+###
+
+### POST - Voluntário com e-mail inválido (espera 400)
+POST {{baseUrl}}/api/voluntarios
+Content-Type: application/json
+
+{
+  "nome": "Maria",
+  "email": "email-invalido",
+  "telefone": "123"
+}
+
+###
+
+### PUT - Atualizar voluntário ID 1
+PUT {{baseUrl}}/api/voluntarios/1
+Content-Type: application/json
+
+{
+  "nome": "Ana Lima Souza",
+  "email": "ana.lima@smartdisaster.com",
+  "telefone": "(11) 98765-4321"
+}
+
+###
+
+### DELETE - Remover voluntário (vai falhar se tiver doações — Restrict)
+DELETE {{baseUrl}}/api/voluntarios/1
+
+###
+
+# ===========================================================
+# DOAÇÕES
+# ===========================================================
+
+### GET - Listar todas as doações
+GET {{baseUrl}}/api/doacoes
+Accept: application/json
+
+###
+
+### GET - Buscar doação por ID
+GET {{baseUrl}}/api/doacoes/1
+Accept: application/json
+
+###
+
+### POST - Registrar nova doação
+POST {{baseUrl}}/api/doacoes
+Content-Type: application/json
+
+{
+  "item": "Cobertor de lã",
+  "quantidade": 80,
+  "status": 1,
+  "abrigoId": 1,
+  "voluntarioId": 1
+}
+
+###
+
+### PUT - Atualizar status da doação ID 1 para Entregue
+PUT {{baseUrl}}/api/doacoes/1
+Content-Type: application/json
+
+{
+  "item": "Cesta Básica",
+  "quantidade": 100,
+  "status": 3,
+  "abrigoId": 1,
+  "voluntarioId": 1
+}
+
+###
+
+### DELETE - Remover doação ID 5
+DELETE {{baseUrl}}/api/doacoes/5
+
+###

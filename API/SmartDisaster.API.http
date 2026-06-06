@@ -1,0 +1,6 @@
+@SmartDisaster.API_HostAddress = http://localhost:5062
+
+GET {{SmartDisaster.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
