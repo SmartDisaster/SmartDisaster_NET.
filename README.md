@@ -6,6 +6,15 @@ O **SmartDisaster Portal** é uma API RESTful para gestão de emergências e des
 
 ---
 
+## Integrantes
+
+| Nome | RM |
+|---|---|
+| Pedro Vaz | RM566551 |
+| João Victor Luiz Oliveira Resende | RM565139 |
+
+---
+
 ## Links importantes
 
 | Recurso | URL |
