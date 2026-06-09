@@ -10,6 +10,7 @@ O **SmartDisaster Portal** é uma API RESTful para gestão de emergências e des
 
 | Recurso | URL |
 |---|---|
+| Repositório GitHub | https://github.com/SmartDisaster/SmartDisaster_NET. |
 | Vídeo Pitch | https://youtu.be/ItPEbWxzNkw |
 | Vídeo de explicação do projeto |https://youtu.be/FzQ4HI2nOgY |
 ---
